@@ -1,74 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const PORT = process.env.PORT;
-const posts = require('../data/posts');
+const postController = require('../controllers/postController');
 
 // index
-router.get('/', (req, res) => {
-    let filteredPosts = posts;
-
-    if (req.query.tag) {
-        const tag = req.query.tag;
-        filteredPosts = posts.filter((post => post.tags.includes(tag)));
-    }
-
-    res.json(filteredPosts);
-})
+router.get('/', postController.index);
 
 // show
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
+router.get('/:id', postController.show);
 
-    const post = posts.find(post => post.id === id);
-    // Facciamo il controllo
-    if (!post) {
-        //Imposto lo status 404
-        res.status(404)
-        // Restituisco un JSON con le altre informazioni
-        return res.json({
-            error: "Not Found",
-            message: "Post non trovato"
-        })
-    }
-    // Restituiamolo sotto forma di JSON
-    res.json(post);
-})
+// store
+router.post('/', postController.store);
 
-// post
-router.post('/', (req, res) => {
-    res.send('New post created');
-})
+// update
+router.put('/:id', postController.update);
 
-// put
-router.put('/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`Full update of post with id ${id}`);
-})
-
-// patch
-router.patch('/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`Partial update of post with id ${id}`);
-})
+// modify
+router.patch('/:id', postController.modify);
 
 // delete
-router.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-
-    const post = posts.find(post => post.id === id);
-
-    if (!post) {
-        res.status(404);
-
-        return res.json({
-            error: "Not Found",
-            message: "Post non trovato"
-        })
-    }
-
-    posts.splice(posts.indexOf(post), 1);
-    res.sendStatus(204);
-    console.log(posts);
-})
+router.delete('/:id', postController.destroy);
 
 module.exports = router;
