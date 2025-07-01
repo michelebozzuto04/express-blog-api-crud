@@ -5,7 +5,14 @@ const posts = require('../data/posts');
 
 // index
 router.get('/', (req, res) => {
-    res.json(posts);
+    let filteredPosts = posts;
+
+    if (req.query.tag) {
+        const tag = req.query.tag;
+        filteredPosts = posts.filter((post => post.tags.includes(tag)));
+    }
+
+    res.json(filteredPosts);
 })
 
 // show
