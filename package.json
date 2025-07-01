@@ -1,0 +1,25 @@
+{
+  "name": "express-blog-api-crud",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+    "watch": "node --watch --env-file=.env main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelebozzuto04/express-blog-api-crud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michelebozzuto04/express-blog-api-crud/issues"
+  },
+  "homepage": "https://github.com/michelebozzuto04/express-blog-api-crud#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0"
+  }
+}
