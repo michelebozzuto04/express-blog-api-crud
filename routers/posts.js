@@ -3,7 +3,7 @@ const router = express.Router();
 const PORT = process.env.PORT;
 const posts = require('../data/posts');
 
-// get
+// index
 router.get('/', (req, res) => {
     res.json(posts);
 })
@@ -46,8 +46,22 @@ router.patch('/:id', (req, res) => {
 
 // delete
 router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`Delete of post with id ${id}`);
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if (!post) {
+        res.status(404);
+
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        })
+    }
+
+    posts.splice(posts.indexOf(post), 1);
+    res.sendStatus(204);
+    console.log(posts);
 })
 
 module.exports = router;
