@@ -49,13 +49,49 @@ function store(req, res) {
 }
 
 function update(req, res) {
-    const id = req.params.id;
-    res.send(`Full update of post with id ${id}`);
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: "Not Found",
+            message: "Post not found"
+        })
+    }
+
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    console.log(posts);
+
+    res.json(post);
 }
 
 function modify(req, res) {
-    const id = req.params.id;
-    res.send(`Partial update of post with id ${id}`);
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: "Not Found",
+            message: "Post not found"
+        })
+    }
+
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    console.log(posts);
+
+    res.json(post);
 }
 
 function destroy(req, res) {
